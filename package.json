@@ -1,0 +1,29 @@
+{
+  "name": "simple-validate",
+  "version": "0.0.1",
+  "description": "NodeJS simple validation functions",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/moblets/simple-validate.git"
+  },
+  "keywords": [
+    "node",
+    "validation"
+  ],
+  "author": "Eduardo Russo <russo@fabapp.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/moblets/simple-validate/issues"
+  },
+  "homepage": "https://github.com/moblets/simple-validate#readme",
+  "devDependencies": {
+    "eslint": "^2.8.0",
+    "eslint-config-google": "^0.5.0",
+    "eslint-plugin-jsdoc": "^2.3.1",
+    "jsdoc": "^3.4.0"
+  }
+}
