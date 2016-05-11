@@ -15,7 +15,12 @@ var validations = {
    * @param  {string} theData The filled form data
    * @return {mixed}         String with the error or false
    */
-  type: function(theType, theValues, theData) {
+  type: function(theType, theData, theValues) {
+    // console.log('TYPE ----------------------------------------');
+    // console.log(theType);
+    // console.log(theData);
+    // console.log(theValues);
+    // console.log('-------------------------------------------------');
     switch (theType) {
       case "number":
         var regex = /([0-9])/;
@@ -31,15 +36,22 @@ var validations = {
       default:
         return true;
     }
+  },
+  minLength: function(theLength, theData) {
+    if (theLength > theData.length) {
+      return theData + ' must be at leat ' + theLength;
+    } else {
+      return true;
+    }
   }
 };
 
 var validate = function(content, rules) {
-  console.log('---------------CONTENT-------------');
-  console.log(content);
-  console.log('----------------RULES--------------');
-  console.log(rules);
-  console.log('-----------------------------------');
+  // console.log('---------------CONTENT-------------');
+  // console.log(content);
+  // console.log('----------------RULES--------------');
+  // console.log(rules);
+  // console.log('-----------------------------------');
 
   var response = {
     err: false
@@ -51,12 +63,16 @@ var validate = function(content, rules) {
     // Iterate the rules of a property
     for (var key in field) {
       if (field.hasOwnProperty(key)) {
+        // Convert theType to camelCase to respect Google Style
+        var cammelCaseKey = key.replace(/-([a-z])/g, function(g) {
+          return g[1].toUpperCase();
+        });
         // Validate all keys existing in the validation functions
-        if (key !== 'name' && typeof validations[key] !== 'undefined') {
-          response[field.name] = validations[key](
+        if (key !== 'name' && typeof validations[cammelCaseKey] !== 'undefined') {
+          response[field.name] = validations[cammelCaseKey](
             field[key],
-            rules[i].values,
-            content[field.name]
+            content[field.name],
+            rules[i].values
           );
         } else {
           response.code = 500;
