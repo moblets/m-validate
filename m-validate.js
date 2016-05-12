@@ -1,81 +1,15 @@
-/**
- * [function description]
- * @param  {Object} data  The data to be validated. Each field in the data
- * object must match a "field" in the rules JSon.
- * @param  {Object} rules The object with each field and the validations
- * @return {Object}       Object with the found errors. If no error was found,
- * an empty object will be returned
- */
+var type = require('./validations/type.js');
+var length = require('./validations/length.js');
+var required = require('./validations/required.js');
+
 var validations = {
-  /**
-   * Validate if the content matches the defined type
-   * @param  {string} theType The type of the field
-   * @param  {string} theData The filled form data
-   * @param  {object} theValues The values of a list, from types select,
-   * checkbox or radio
-   * @return {mixed}         String with the error or false
-   */
-  type: function(theType, theData, theValues) {
-    // console.log('TYPE ----------------------------------------');
-    // console.log(theType);
-    // console.log(theData);
-    // console.log(theValues);
-    // console.log('-------------------------------------------------');
-    //
-    // console.log('type', theType, theData, theValues);
-    var response = true;
-    if (theData !== undefined) {
-      switch (theType) {
-        case "number":
-          var regex = /([0-9])/;
-          if (!regex.test(theData)) {
-            response = 'not_a_number';
-          }
-          break;
-        case "select":
-          if (typeof theValues[theData] === 'undefined') {
-            response = 'not_in_the_select_list';
-          }
-          break;
-        default:
-          response = true;
-          break;
-      }
-    }
-    return response;
-  },
-  minLength: function(theLength, theData) {
-    // console.log('minLength', theLength, theData);
-    var response = true;
-    if (theData !== undefined && theLength > theData.length) {
-      response = 'must_be_at_least_chars: ' + theLength;
-    }
-    return response;
-  },
-  maxLength: function(theLength, theData) {
-    console.log('-----------------------', theData.length);
-    var response = true;
-    if (theData !== undefined && theLength < theData.length) {
-      response = 'must_be_more_than_chars: ' + theLength;
-    }
-    return response;
-  },
-  required: function(required, theData) {
-    var response = true;
-    if (theData === undefined) {
-      response = 'field_is_required';
-    }
-    return response;
-  }
+  type: type,
+  minLength: length.min,
+  maxLength: length.max,
+  required: required
 };
 
 var validate = function(content, properties) {
-  // console.log('---------------CONTENT-------------');
-  // console.log(content);
-  // console.log('----------------RULES--------------');
-  // console.log(properties);
-  // console.log('-----------------------------------');
-
   // Set the response code as 200 as default. Change on error.
   var response = {
     code: 200
@@ -84,7 +18,7 @@ var validate = function(content, properties) {
   // Iterate the array with the PROPERTIES
   for (var i = 0; i < properties.length; i++) {
     var property = properties[i];
-    console.log('property = ', property);
+
     // Iterate the RULES of a PROPERTY
     for (var rule in property) {
       if (property.hasOwnProperty(rule)) {
@@ -99,7 +33,7 @@ var validate = function(content, properties) {
         var ccRule = rule.replace(/-([a-z])/g, function(g) {
           return g[1].toUpperCase();
         });
-        // console.log('-----', rule, ccRule);
+
         // Validate all rules existing in the validation functions
         // Ignore "name" and keys that don't have a validation deffined
         if (
