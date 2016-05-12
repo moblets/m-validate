@@ -1,0 +1,26 @@
+{
+    "fields": [
+        {
+            "name": "password",
+            "type": "number",
+            "max-length": 4,
+            "min-length": 4,
+            "required": true
+        },
+        {
+            "name": "description",
+            "type": "text-area",
+            "required": true
+        },
+        {
+            "name": "quantity",
+            "type": "select",
+            "values": {
+                "0": "value_3",
+                "1": "value_6",
+                "2": "value_9"
+            },
+            "required": true
+        }
+    ]
+}
