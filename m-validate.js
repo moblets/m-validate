@@ -69,45 +69,50 @@ var validations = {
   }
 };
 
-var validate = function(content, rules) {
+var validate = function(content, properties) {
   // console.log('---------------CONTENT-------------');
   // console.log(content);
   // console.log('----------------RULES--------------');
-  // console.log(rules);
+  // console.log(properties);
   // console.log('-----------------------------------');
 
+  // Set the response code as 200 as default. Change on error.
   var response = {
     code: 200
   };
 
-  // Iterate the array with the properties
-  for (var i = 0; i < rules.length; i++) {
-    var formField = rules[i];
-    console.log('formField = ', formField);
-    // Iterate the rules of a property
-    for (var key in formField) {
-      if (formField.hasOwnProperty(key)) {
-        var fieldName = formField.name;
+  // Iterate the array with the PROPERTIES
+  for (var i = 0; i < properties.length; i++) {
+    var property = properties[i];
+    console.log('property = ', property);
+    // Iterate the RULES of a PROPERTY
+    for (var rule in property) {
+      if (property.hasOwnProperty(rule)) {
+        var fieldName = property.name;
+
+        // Create the object for the results of a property
         if (typeof response[fieldName] === 'undefined') {
           response[fieldName] = {};
         }
-        // Convert theType to camelCase to respect Google Style
-        var cammelCaseKey = key.replace(/-([a-z])/g, function(g) {
+
+        // Convert the rule to camelCase to respect Google Style
+        var ccRule = rule.replace(/-([a-z])/g, function(g) {
           return g[1].toUpperCase();
         });
-        // console.log('-----', key, cammelCaseKey);
-        // Validate all keys existing in the validation functions
+        // console.log('-----', rule, ccRule);
+        // Validate all rules existing in the validation functions
+        // Ignore "name" and keys that don't have a validation deffined
         if (
-          key !== 'name' &&
-          typeof validations[cammelCaseKey] !== 'undefined') {
-          var validationResult = validations[cammelCaseKey](
-            formField[key],
+          rule !== 'name' &&
+          typeof validations[ccRule] !== 'undefined') {
+          var validationResult = validations[ccRule](
+            property[rule],
             content[fieldName],
-            rules[i].values
+            property.values
           );
           if (validationResult !== true) {
             response.code = 400;
-            (response[fieldName])[key] = validationResult;
+            (response[fieldName])[rule] = validationResult;
           }
         }
       }
