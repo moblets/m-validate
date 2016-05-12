@@ -10,9 +10,9 @@ var validations = {
   /**
    * Validate if the content matches the defined type
    * @param  {string} theType The type of the field
+   * @param  {string} theData The filled form data
    * @param  {object} theValues The values of a list, from types select,
    * checkbox or radio
-   * @param  {string} theData The filled form data
    * @return {mixed}         String with the error or false
    */
   type: function(theType, theData, theValues) {
@@ -21,28 +21,51 @@ var validations = {
     // console.log(theData);
     // console.log(theValues);
     // console.log('-------------------------------------------------');
-    switch (theType) {
-      case "number":
-        var regex = /([0-9])/;
-        if (!regex.test(theData)) {
-          return theData + ' is not a number';
-        }
-        break;
-      case "select":
-        if (typeof theValues[theData] === 'undefined') {
-          return theData + ' is not in the list';
-        }
-        break;
-      default:
-        return true;
+    //
+    // console.log('type', theType, theData, theValues);
+    var response = true;
+    if (theData !== undefined) {
+      switch (theType) {
+        case "number":
+          var regex = /([0-9])/;
+          if (!regex.test(theData)) {
+            response = 'not_a_number';
+          }
+          break;
+        case "select":
+          if (typeof theValues[theData] === 'undefined') {
+            response = 'not_in_the_select_list';
+          }
+          break;
+        default:
+          response = true;
+          break;
+      }
     }
+    return response;
   },
   minLength: function(theLength, theData) {
-    if (theLength > theData.length) {
-      return theData + ' must be at leat ' + theLength;
-    } else {
-      return true;
+    // console.log('minLength', theLength, theData);
+    var response = true;
+    if (theData !== undefined && theLength > theData.length) {
+      response = 'must_be_at_least_chars: ' + theLength;
     }
+    return response;
+  },
+  maxLength: function(theLength, theData) {
+    console.log('-----------------------', theData.length);
+    var response = true;
+    if (theData !== undefined && theLength < theData.length) {
+      response = 'must_be_more_than_chars: ' + theLength;
+    }
+    return response;
+  },
+  required: function(required, theData) {
+    var response = true;
+    if (theData === undefined) {
+      response = 'field_is_required';
+    }
+    return response;
   }
 };
 
@@ -54,32 +77,38 @@ var validate = function(content, rules) {
   // console.log('-----------------------------------');
 
   var response = {
-    err: false
+    code: 200
   };
 
   // Iterate the array with the properties
   for (var i = 0; i < rules.length; i++) {
-    var field = rules[i];
+    var formField = rules[i];
+    console.log('formField = ', formField);
     // Iterate the rules of a property
-    for (var key in field) {
-      if (field.hasOwnProperty(key)) {
+    for (var key in formField) {
+      if (formField.hasOwnProperty(key)) {
+        var fieldName = formField.name;
+        if (typeof response[fieldName] === 'undefined') {
+          response[fieldName] = {};
+        }
         // Convert theType to camelCase to respect Google Style
         var cammelCaseKey = key.replace(/-([a-z])/g, function(g) {
           return g[1].toUpperCase();
         });
+        // console.log('-----', key, cammelCaseKey);
         // Validate all keys existing in the validation functions
-        if (key !== 'name' && typeof validations[cammelCaseKey] !== 'undefined') {
-          response[field.name] = validations[cammelCaseKey](
-            field[key],
-            content[field.name],
+        if (
+          key !== 'name' &&
+          typeof validations[cammelCaseKey] !== 'undefined') {
+          var validationResult = validations[cammelCaseKey](
+            formField[key],
+            content[fieldName],
             rules[i].values
           );
-        } else {
-          response.code = 500;
-          response.undefined = {
-            code: 500,
-            error: "Undefined validation"
-          };
+          if (validationResult !== true) {
+            response.code = 400;
+            (response[fieldName])[key] = validationResult;
+          }
         }
       }
     }
