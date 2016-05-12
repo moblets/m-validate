@@ -1,26 +1,41 @@
 {
-    "fields": [
-        {
-            "name": "password",
-            "type": "number",
-            "max-length": 4,
-            "min-length": 4,
-            "required": true
-        },
-        {
-            "name": "description",
-            "type": "text-area",
-            "required": true
-        },
-        {
-            "name": "quantity",
-            "type": "select",
-            "values": {
-                "0": "value_3",
-                "1": "value_6",
-                "2": "value_9"
-            },
-            "required": true
-        }
-    ]
+  "fields": [
+    {
+      "name": "name",
+      "type": "text",
+      "min-length": 3
+    },
+    {
+      "name": "password",
+      "type": "number",
+      "max-length": 4,
+      "min-length": 4,
+      "required": true
+    },
+    {
+      "name": "description",
+      "type": "text-area"
+    },
+    {
+      "name": "quantity",
+      "type": "select",
+      "values": {
+        "0": "value_3",
+        "1": "value_6",
+        "2": "value_9"
+      }
+    },
+    {
+      "name": "themeColor",
+      "type": "color"
+    },
+    {
+      "name": "birthDay",
+      "type": "date"
+    },
+    {
+      "name": "arrival",
+      "type": "time"
+    }
+  ]
 }
