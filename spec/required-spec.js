@@ -15,11 +15,12 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.password).toEqual({});
-    expect(result.description).toEqual({});
-    expect(result.quantity).toEqual({});
-    expect(result.themeColor).toEqual({});
-    expect(result.arrival).toEqual({});
+    expect(result.error).toBe(false);
+    expect(result.result.password).toEqual({});
+    expect(result.result.description).toEqual({});
+    expect(result.result.quantity).toEqual({});
+    expect(result.result.themeColor).toEqual({});
+    expect(result.result.arrival).toEqual({});
   });
 
   it('should respond with errors for required fields', function() {
@@ -28,7 +29,8 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.password.required).toBe('field_is_required');
-    expect(result.birthDay).toEqual({});
+    expect(result.error).toBe(true);
+    expect(result.result.password.required).toBe('field_is_required');
+    expect(result.result.birthDay).toEqual({});
   });
 });

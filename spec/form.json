@@ -31,6 +31,26 @@
       }
     },
     {
+      "name": "position",
+      "type": "radio",
+      "values": {
+        "left": "value_left",
+        "right": "value_right",
+        "up": "value_up",
+        "down": "value_down"
+      }
+    },
+    {
+      "name": "color",
+      "type": "checkbox",
+      "values": {
+        "green": "value_green",
+        "blue": "value_blue",
+        "yellow": "value_yellow",
+        "white": "value_white"
+      }
+    },
+    {
       "name": "themeColor",
       "type": "color"
     },

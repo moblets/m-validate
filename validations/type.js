@@ -14,6 +14,16 @@ module.exports = function(theType, theData, theValues) {
           response = 'not_in_the_select_list';
         }
         break;
+      case "radio":
+        if (typeof theValues[theData] === 'undefined') {
+          response = 'not_in_the_radio_list';
+        }
+        break;
+      case "checkbox":
+        if (typeof theValues[theData] === 'undefined') {
+          response = 'not_in_the_checkbox_list';
+        }
+        break;
       case "color":
         var color = /^#([A-Fa-f0-9]{6})$/;
         if (!color.test(theData)) {
@@ -47,7 +57,7 @@ module.exports = function(theType, theData, theValues) {
         }
         break;
       case "tel":
-        var tel = /^(\+?\(?\d)+\)?\ ?(\(?\d)+\)?\ ?\d*\ ?\-?\d*$/;
+        var tel = /^(\+?\(?\d)+\)? ?(\(?\d)+\)? ?\d* ?\-?\d*$/;
 
         if (!tel.test(theData)) {
           response = "not_a_tel";

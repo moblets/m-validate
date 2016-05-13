@@ -15,7 +15,8 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.password).toEqual({});
+    expect(result.error).toBe(false);
+    expect(result.result.password).toEqual({});
   });
 
   it('should respond with error for numbertype', function() {
@@ -24,7 +25,8 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.password.type).toBe('not_a_number');
+    expect(result.error).toBe(true);
+    expect(result.result.password.type).toBe('not_a_number');
   });
 
   it('should respond with success for select type', function() {
@@ -34,7 +36,8 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.quantity).toEqual({});
+    expect(result.error).toBe(false);
+    expect(result.result.quantity).toEqual({});
   });
 
   it('should respond with error for select type', function() {
@@ -44,7 +47,52 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.quantity.type).toBe('not_in_the_select_list');
+    expect(result.error).toBe(true);
+    expect(result.result.quantity.type).toBe('not_in_the_select_list');
+  });
+
+  it('should respond with success for radio type', function() {
+    var content = {
+      password: "1234",
+      position: "right"
+    };
+
+    var result = validate(content, definitionFields);
+    expect(result.error).toBe(false);
+    expect(result.result.position).toEqual({});
+  });
+
+  it('should respond with error for radio type', function() {
+    var content = {
+      password: "1234",
+      position: "top"
+    };
+
+    var result = validate(content, definitionFields);
+    expect(result.error).toBe(true);
+    expect(result.result.position.type).toBe('not_in_the_radio_list');
+  });
+
+  it('should respond with success for checkbox type', function() {
+    var content = {
+      password: "1234",
+      color: "green"
+    };
+
+    var result = validate(content, definitionFields);
+    expect(result.error).toBe(false);
+    expect(result.result.color).toEqual({});
+  });
+
+  it('should respond with error for checkbox type', function() {
+    var content = {
+      password: "1234",
+      color: "black"
+    };
+
+    var result = validate(content, definitionFields);
+    expect(result.error).toBe(true);
+    expect(result.result.color.type).toBe('not_in_the_checkbox_list');
   });
 
   it('should respond with success for color type', function() {
@@ -54,7 +102,8 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.themeColor).toEqual({});
+    expect(result.error).toBe(false);
+    expect(result.result.themeColor).toEqual({});
   });
 
   it('should respond with error for color type', function() {
@@ -64,7 +113,8 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.themeColor.type).toBe('not_a_color');
+    expect(result.error).toBe(true);
+    expect(result.result.themeColor.type).toBe('not_a_color');
   });
 
   it('should respond with success for date type', function() {
@@ -74,7 +124,8 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.birthDay).toEqual({});
+    expect(result.error).toBe(false);
+    expect(result.result.birthDay).toEqual({});
   });
 
   it('should respond with error for date type', function() {
@@ -84,7 +135,8 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.birthDay.type).toBe('not_a_date');
+    expect(result.error).toBe(true);
+    expect(result.result.birthDay.type).toBe('not_a_date');
   });
 
   it('should respond with error for date type (31/04)', function() {
@@ -94,7 +146,8 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.birthDay.type).toBe('not_a_date');
+    expect(result.error).toBe(true);
+    expect(result.result.birthDay.type).toBe('not_a_date');
   });
 
   it('should respond with success for time type (03:14)', function() {
@@ -104,7 +157,8 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.arrival).toEqual({});
+    expect(result.error).toBe(false);
+    expect(result.result.arrival).toEqual({});
   });
 
   it('should respond with error for time type (24:14)', function() {
@@ -114,7 +168,8 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.arrival.type).toBe('not_a_time');
+    expect(result.error).toBe(true);
+    expect(result.result.arrival.type).toBe('not_a_time');
   });
 
   it('should respond with success for time type (3:14)', function() {
@@ -124,7 +179,8 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.arrival).toEqual({});
+    expect(result.error).toBe(false);
+    expect(result.result.arrival).toEqual({});
   });
 
   it('should respond with success for time type (03:14)', function() {
@@ -134,7 +190,8 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.arrival).toEqual({});
+    expect(result.error).toBe(false);
+    expect(result.result.arrival).toEqual({});
   });
 
   it('should respond with success for email type (russo@gmail.co)', function() {
@@ -144,7 +201,8 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.email).toEqual({});
+    expect(result.error).toBe(false);
+    expect(result.result.email).toEqual({});
   });
 
   it('should respond with success for email type (russo@gmail.com.com.br)',
@@ -155,7 +213,8 @@ describe('validation', function() {
       };
 
       var result = validate(content, definitionFields);
-      expect(result.email).toEqual({});
+      expect(result.error).toBe(false);
+      expect(result.result.email).toEqual({});
     });
 
   it('should respond with success for email type (r@mob.cc)', function() {
@@ -165,7 +224,8 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.email).toEqual({});
+    expect(result.error).toBe(false);
+    expect(result.result.email).toEqual({});
   });
 
   it('should respond with error for email type', function() {
@@ -175,7 +235,8 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.email.type).toBe('not_an_email');
+    expect(result.error).toBe(true);
+    expect(result.result.email.type).toBe('not_an_email');
   });
 
   it('should respond with success for url type (fabapp.com)', function() {
@@ -185,7 +246,8 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.siteaddress).toEqual({});
+    expect(result.error).toBe(false);
+    expect(result.result.siteaddress).toEqual({});
   });
 
   it('should respond with success for url type (e.russo.fab.mobi)', function() {
@@ -195,7 +257,8 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.siteaddress).toEqual({});
+    expect(result.error).toBe(false);
+    expect(result.result.siteaddress).toEqual({});
   });
 
   it('should respond with success for url type (query string)', function() {
@@ -205,7 +268,8 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.siteaddress).toEqual({});
+    expect(result.error).toBe(false);
+    expect(result.result.siteaddress).toEqual({});
   });
 
   it('should respond with success for url type (https)', function() {
@@ -215,7 +279,8 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.siteaddress).toEqual({});
+    expect(result.error).toBe(false);
+    expect(result.result.siteaddress).toEqual({});
   });
 
   it('should respond with success for url type (https)', function() {
@@ -225,17 +290,19 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.siteaddress).toEqual({});
+    expect(result.error).toBe(false);
+    expect(result.result.siteaddress).toEqual({});
   });
 
-  it('should respond with error for url type (without http)', function() {
+  it('should respond with success for url type (without http)', function() {
     var content = {
       password: "1234",
       siteaddress: "russo.fabapp.com"
     };
 
     var result = validate(content, definitionFields);
-    expect(result.siteaddress).toEqual({});
+    expect(result.error).toBe(false);
+    expect(result.result.siteaddress).toEqual({});
   });
 
   it('should respond with error for url type (.com)', function() {
@@ -245,20 +312,22 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.siteaddress.type).toBe('not_an_url');
+    expect(result.error).toBe(true);
+    expect(result.result.siteaddress.type).toBe('not_an_url');
   });
 
-  it('should respond with error for url type (query string)', function() {
+  it('should respond with success for url type (query string)', function() {
     var content = {
       password: "1234",
       siteaddress: "http://test.com?query=false?repeat=question"
     };
 
     var result = validate(content, definitionFields);
-    expect(result.siteaddress).toEqual({});
+    expect(result.error).toBe(false);
+    expect(result.result.siteaddress).toEqual({});
   });
 
-  it('should respond with error for tel type (multiple)', function() {
+  it('should respond with success for tel type (multiple)', function() {
     var content = {
       password: "1234",
       phone1: "551199999999",
@@ -275,17 +344,18 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.phone1).toEqual({});
-    expect(result.phone2).toEqual({});
-    expect(result.phone3).toEqual({});
-    expect(result.phone4).toEqual({});
-    expect(result.phone5).toEqual({});
-    expect(result.phone6).toEqual({});
-    expect(result.phone7).toEqual({});
-    expect(result.phone8).toEqual({});
-    expect(result.phone9).toEqual({});
-    expect(result.phone10).toEqual({});
-    expect(result.phone11).toEqual({});
+    expect(result.error).toBe(false);
+    expect(result.result.phone1).toEqual({});
+    expect(result.result.phone2).toEqual({});
+    expect(result.result.phone3).toEqual({});
+    expect(result.result.phone4).toEqual({});
+    expect(result.result.phone5).toEqual({});
+    expect(result.result.phone6).toEqual({});
+    expect(result.result.phone7).toEqual({});
+    expect(result.result.phone8).toEqual({});
+    expect(result.result.phone9).toEqual({});
+    expect(result.result.phone10).toEqual({});
+    expect(result.result.phone11).toEqual({});
   });
 
   it('should respond with error for tel type (multiple)', function() {
@@ -305,16 +375,17 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.phone1.type).toBe('not_a_tel');
-    expect(result.phone2.type).toBe('not_a_tel');
-    expect(result.phone3.type).toBe('not_a_tel');
-    expect(result.phone4.type).toBe('not_a_tel');
-    expect(result.phone5.type).toBe('not_a_tel');
-    expect(result.phone6.type).toBe('not_a_tel');
-    expect(result.phone7.type).toBe('not_a_tel');
-    expect(result.phone8.type).toBe('not_a_tel');
-    expect(result.phone9.type).toBe('not_a_tel');
-    expect(result.phone10.type).toBe('not_a_tel');
-    expect(result.phone11.type).toBe('not_a_tel');
+    expect(result.error).toBe(true);
+    expect(result.result.phone1.type).toBe('not_a_tel');
+    expect(result.result.phone2.type).toBe('not_a_tel');
+    expect(result.result.phone3.type).toBe('not_a_tel');
+    expect(result.result.phone4.type).toBe('not_a_tel');
+    expect(result.result.phone5.type).toBe('not_a_tel');
+    expect(result.result.phone6.type).toBe('not_a_tel');
+    expect(result.result.phone7.type).toBe('not_a_tel');
+    expect(result.result.phone8.type).toBe('not_a_tel');
+    expect(result.result.phone9.type).toBe('not_a_tel');
+    expect(result.result.phone10.type).toBe('not_a_tel');
+    expect(result.result.phone11.type).toBe('not_a_tel');
   });
 });
