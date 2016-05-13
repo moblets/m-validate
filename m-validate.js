@@ -10,10 +10,7 @@ var validations = {
 };
 
 var validate = function(content, properties) {
-  // Set the response code as 200 as default. Change on error.
-  var response = {
-    code: 200
-  };
+  var response = {};
 
   // Iterate the array with the PROPERTIES
   for (var i = 0; i < properties.length; i++) {
@@ -45,7 +42,6 @@ var validate = function(content, properties) {
             property.values
           );
           if (validationResult !== true) {
-            response.code = 400;
             (response[fieldName])[rule] = validationResult;
           }
         }

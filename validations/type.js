@@ -1,3 +1,4 @@
+var moment = require('moment');
 module.exports = function(theType, theData, theValues) {
   var response = true;
   if (theData !== undefined) {
@@ -20,9 +21,23 @@ module.exports = function(theType, theData, theValues) {
         }
         break;
       case "date":
-        var date = /[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
-        if (!date.test(theData)) {
+        var m = moment(theData, 'YYYY-MM-DD', true);
+        if (m.isValid() === false) {
           response = 'not_a_date';
+        }
+        break;
+      case "time":
+        var t = moment(theData, 'H:mm', true);
+        if (t.isValid() === false) {
+          response = 'not_a_time';
+        }
+        break;
+      case "email":
+        var email = new RegExp(/^([a-zA-Z0-9\.\-_])+/.source +
+          /@(([a-zA-Z0-9\-])+\.)+/.source +
+          /([a-zA-Z0-9]{2,4})+$/.source);
+        if (!email.test(theData)) {
+          response = 'not_an_email';
         }
         break;
       default:

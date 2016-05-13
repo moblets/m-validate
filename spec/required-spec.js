@@ -15,7 +15,6 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.code).toBe(200);
     expect(result.password).toEqual({});
     expect(result.description).toEqual({});
     expect(result.quantity).toEqual({});
@@ -29,7 +28,6 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.code).toBe(400);
     expect(result.password.required).toBe('field_is_required');
     expect(result.birthDay).toEqual({});
   });
