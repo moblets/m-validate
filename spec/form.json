@@ -113,6 +113,10 @@
     {
       "name": "phone11",
       "type": "tel"
+    },
+    {
+      "name": "alpha",
+      "string": "alpha"
     }
   ]
 }
