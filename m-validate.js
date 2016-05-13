@@ -10,6 +10,7 @@ var validations = {
 };
 
 var validate = function(content, properties) {
+  var error = false;
   var response = {};
 
   // Iterate the array with the PROPERTIES
@@ -43,12 +44,16 @@ var validate = function(content, properties) {
           );
           if (validationResult !== true) {
             (response[fieldName])[rule] = validationResult;
+            error = true;
           }
         }
       }
     }
   }
-  return response;
+  return {
+    error: error,
+    result: response
+  };
 };
 
 module.exports = validate;

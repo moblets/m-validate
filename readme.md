@@ -95,26 +95,50 @@ var content = req.body;
 var response = validate(content, mobletDefinitionFields);
 ```
 
+The validation response will be an object with two items: a **boolean** and an **object**.
+
+The **boolean** is called **"error"** and will be true if **any of the validations did not pass**.
+
+The **object** is called **"result"** and will have all the **validated fields** as an object. If any validation failed, this object will have the validation type and the result, for instance:
+
+```javascript
+{
+  error: true,
+  response: {
+    name: {},
+    password: {
+      required: 'field_is_required',
+      'max-length': 'must_be_more_than_chars: 4'
+    },
+    description: {},
+    quantity: {},
+    position: {},
+    color: {},
+    themeColor: {
+      type: 'not_a_color'
+    },
+    birthDay: {},
+    arrival: {},
+    email: {},
+    siteaddress: {
+      type: 'not_an_url'
+    },
+    phone: {
+      type: 'not_a_tel'
+    },
+    cell: {}
+  }
+}
+```
+
 ## License
 
 The MIT License (MIT)
 
 Copyright (c) 2016 Moblets
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
