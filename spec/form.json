@@ -40,6 +40,10 @@
     {
       "name": "email",
       "type": "email"
+    },
+    {
+      "name": "siteaddress",
+      "type": "url"
     }
   ]
 }

@@ -147,15 +147,16 @@ describe('validation', function() {
     expect(result.email).toEqual({});
   });
 
-  it('should respond with success for email type (russo@gmail.com.com.br)', function() {
-    var content = {
-      password: "1234",
-      email: "russo@gmail.com.com.br"
-    };
+  it('should respond with success for email type (russo@gmail.com.com.br)',
+    function() {
+      var content = {
+        password: "1234",
+        email: "russo@gmail.com.com.br"
+      };
 
-    var result = validate(content, definitionFields);
-    expect(result.email).toEqual({});
-  });
+      var result = validate(content, definitionFields);
+      expect(result.email).toEqual({});
+    });
 
   it('should respond with success for email type (r@mob.cc)', function() {
     var content = {
@@ -175,5 +176,85 @@ describe('validation', function() {
 
     var result = validate(content, definitionFields);
     expect(result.email.type).toBe('not_an_email');
+  });
+
+  it('should respond with success for url type (fabapp.com)', function() {
+    var content = {
+      password: "1234",
+      siteaddress: "http://fabapp.com/teste.com/br"
+    };
+
+    var result = validate(content, definitionFields);
+    expect(result.siteaddress).toEqual({});
+  });
+
+  it('should respond with success for url type (e.russo.fab.mobi)', function() {
+    var content = {
+      password: "1234",
+      siteaddress: "http://e.russo.fab.mobi.com.br.mobi/"
+    };
+
+    var result = validate(content, definitionFields);
+    expect(result.siteaddress).toEqual({});
+  });
+
+  it('should respond with success for url type (query string)', function() {
+    var content = {
+      password: "1234",
+      siteaddress: "http://russo.com?olar=teste&teste=olar"
+    };
+
+    var result = validate(content, definitionFields);
+    expect(result.siteaddress).toEqual({});
+  });
+
+  it('should respond with success for url type (https)', function() {
+    var content = {
+      password: "1234",
+      siteaddress: "https://universo.mobi"
+    };
+
+    var result = validate(content, definitionFields);
+    expect(result.siteaddress).toEqual({});
+  });
+
+  it('should respond with success for url type (https)', function() {
+    var content = {
+      password: "1234",
+      siteaddress: "http://g.google"
+    };
+
+    var result = validate(content, definitionFields);
+    expect(result.siteaddress).toEqual({});
+  });
+
+  it('should respond with error for url type (without http)', function() {
+    var content = {
+      password: "1234",
+      siteaddress: "russo.fabapp.com"
+    };
+
+    var result = validate(content, definitionFields);
+    expect(result.siteaddress).toEqual({});
+  });
+
+  it('should respond with error for url type (.com)', function() {
+    var content = {
+      password: "1234",
+      siteaddress: "http://.com"
+    };
+
+    var result = validate(content, definitionFields);
+    expect(result.siteaddress.type).toBe('not_an_url');
+  });
+
+  it('should respond with error for url type (query string)', function() {
+    var content = {
+      password: "1234",
+      siteaddress: "http://test.com?query=false?repeat=question"
+    };
+
+    var result = validate(content, definitionFields);
+    expect(result.siteaddress.type).toBe('not_an_url');
   });
 });
