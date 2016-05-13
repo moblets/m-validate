@@ -44,6 +44,14 @@
     {
       "name": "alpha",
       "string": "string"
+    },
+    {
+      "name": "file",
+      "file": "filename"
+    },
+    {
+      "name": "image",
+      "file": "filename"
     }
   ]
 }

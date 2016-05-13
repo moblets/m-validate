@@ -2,13 +2,16 @@ var type = require('./validations/type.js');
 var length = require('./validations/length.js');
 var required = require('./validations/required.js');
 var alpha = require('./validations/alpha.js');
+var file = require('./validations/file.js');
 
 var validations = {
   type: type,
   minLength: length.min,
   maxLength: length.max,
   required: required,
-  string: alpha
+  string: alpha,
+  file: file,
+  image: file
 };
 
 var validate = function(content, properties) {
