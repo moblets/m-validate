@@ -201,7 +201,7 @@ describe('validation', function() {
   it('should respond with success for url type (query string)', function() {
     var content = {
       password: "1234",
-      siteaddress: "http://russo.com?olar=teste&teste=olar"
+      siteaddress: "http://m.app.vc/rlbaladas#/home?olar=teste&teste=olar"
     };
 
     var result = validate(content, definitionFields);
@@ -255,6 +255,66 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.siteaddress.type).toBe('not_an_url');
+    expect(result.siteaddress).toEqual({});
+  });
+
+  it('should respond with error for tel type (multiple)', function() {
+    var content = {
+      password: "1234",
+      phone1: "551199999999",
+      phone2: "+55 11 995277809",
+      phone3: "55 11 99527-7809",
+      phone4: "+55 (011 995277809",
+      phone5: "55 (11) 99527-7809",
+      phone6: "(11) 995277809",
+      phone7: "(11) 99527-7809",
+      phone8: "11 99527-7809",
+      phone9: "99527-7809",
+      phone10: "995277809",
+      phone11: "9999  9999"
+    };
+
+    var result = validate(content, definitionFields);
+    expect(result.phone1).toEqual({});
+    expect(result.phone2).toEqual({});
+    expect(result.phone3).toEqual({});
+    expect(result.phone4).toEqual({});
+    expect(result.phone5).toEqual({});
+    expect(result.phone6).toEqual({});
+    expect(result.phone7).toEqual({});
+    expect(result.phone8).toEqual({});
+    expect(result.phone9).toEqual({});
+    expect(result.phone10).toEqual({});
+    expect(result.phone11).toEqual({});
+  });
+
+  it('should respond with error for tel type (multiple)', function() {
+    var content = {
+      password: "1234",
+      phone1: "11 abc-18271",
+      phone2: "-",
+      phone3: "(",
+      phone4: ")",
+      phone5: "a",
+      phone6: "12345=",
+      phone7: "]",
+      phone8: "asdf",
+      phone9: " ",
+      phone10: "9786obtu",
+      phone11: "kla urg"
+    };
+
+    var result = validate(content, definitionFields);
+    expect(result.phone1.type).toBe('not_a_tel');
+    expect(result.phone2.type).toBe('not_a_tel');
+    expect(result.phone3.type).toBe('not_a_tel');
+    expect(result.phone4.type).toBe('not_a_tel');
+    expect(result.phone5.type).toBe('not_a_tel');
+    expect(result.phone6.type).toBe('not_a_tel');
+    expect(result.phone7.type).toBe('not_a_tel');
+    expect(result.phone8.type).toBe('not_a_tel');
+    expect(result.phone9.type).toBe('not_a_tel');
+    expect(result.phone10.type).toBe('not_a_tel');
+    expect(result.phone11.type).toBe('not_a_tel');
   });
 });
