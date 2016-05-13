@@ -1,12 +1,14 @@
 var type = require('./validations/type.js');
 var length = require('./validations/length.js');
 var required = require('./validations/required.js');
+var alpha = require('./validations/alpha.js');
 
 var validations = {
   type: type,
   minLength: length.min,
   maxLength: length.max,
-  required: required
+  required: required,
+  string: alpha
 };
 
 var validate = function(content, properties) {

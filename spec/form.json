@@ -40,6 +40,10 @@
     {
       "name": "email",
       "type": "email"
+    },
+    {
+      "name": "alpha",
+      "string": "string"
     }
   ]
 }
