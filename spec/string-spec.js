@@ -16,7 +16,8 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
-    expect(result.alpha).toEqual({});
+    expect(result.error).toBe(false);
+    expect(result.result.alpha).toEqual({});
   });
 
   it('should error with alpha begin with number', function() {
@@ -25,7 +26,8 @@ describe('validation', function() {
       alpha: "1qwerty@"
     };
     var result = validate(content, definitionFields);
-    expect(result.alpha.string).toBe("not_an_alpha");
+    expect(result.error).toBe(true);
+    expect(result.result.alpha.string).toBe("not_an_alpha");
   });
 
   it('should error with alpha end in number', function() {
@@ -34,7 +36,8 @@ describe('validation', function() {
       alpha: "qwerty1#"
     };
     var result = validate(content, definitionFields);
-    expect(result.alpha.string).toBe("not_an_alpha");
+    expect(result.error).toBe(true);
+    expect(result.result.alpha.string).toBe("not_an_alpha");
   });
 
   it('should error with alpha contain number', function() {
@@ -43,6 +46,7 @@ describe('validation', function() {
       alpha: "qwer2ty%"
     };
     var result = validate(content, definitionFields);
-    expect(result.alpha.string).toBe("not_an_alpha");
+    expect(result.error).toBe(true);
+    expect(result.result.alpha.string).toBe("not_an_alpha");
   });
 });

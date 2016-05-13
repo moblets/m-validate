@@ -1,17 +1,18 @@
 var type = require('./validations/type.js');
 var length = require('./validations/length.js');
 var required = require('./validations/required.js');
-var alpha = require('./validations/alpha.js');
+var string = require('./validations/string.js');
 
 var validations = {
   type: type,
   minLength: length.min,
   maxLength: length.max,
   required: required,
-  string: alpha
+  string: string
 };
 
 var validate = function(content, properties) {
+  var error = false;
   var response = {};
 
   // Iterate the array with the PROPERTIES
@@ -45,12 +46,16 @@ var validate = function(content, properties) {
           );
           if (validationResult !== true) {
             (response[fieldName])[rule] = validationResult;
+            error = true;
           }
         }
       }
     }
   }
-  return response;
+  return {
+    error: error,
+    result: response
+  };
 };
 
 module.exports = validate;

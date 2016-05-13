@@ -13,6 +13,11 @@
       "required": true
     },
     {
+      "name": "confirmPassword",
+      "type": "number",
+      "same": "password"
+    },
+    {
       "name": "description",
       "type": "text-area"
     },
@@ -23,6 +28,26 @@
         "0": "value_3",
         "1": "value_6",
         "2": "value_9"
+      }
+    },
+    {
+      "name": "position",
+      "type": "radio",
+      "values": {
+        "left": "value_left",
+        "right": "value_right",
+        "up": "value_up",
+        "down": "value_down"
+      }
+    },
+    {
+      "name": "color",
+      "type": "checkbox",
+      "values": {
+        "green": "value_green",
+        "blue": "value_blue",
+        "yellow": "value_yellow",
+        "white": "value_white"
       }
     },
     {
@@ -42,8 +67,56 @@
       "type": "email"
     },
     {
+      "name": "siteaddress",
+      "type": "url"
+    },
+    {
+      "name": "phone1",
+      "type": "tel"
+    },
+    {
+      "name": "phone2",
+      "type": "tel"
+    },
+    {
+      "name": "phone3",
+      "type": "tel"
+    },
+    {
+      "name": "phone4",
+      "type": "tel"
+    },
+    {
+      "name": "phone5",
+      "type": "tel"
+    },
+    {
+      "name": "phone6",
+      "type": "tel"
+    },
+    {
+      "name": "phone7",
+      "type": "tel"
+    },
+    {
+      "name": "phone8",
+      "type": "tel"
+    },
+    {
+      "name": "phone9",
+      "type": "tel"
+    },
+    {
+      "name": "phone10",
+      "type": "tel"
+    },
+    {
+      "name": "phone11",
+      "type": "tel"
+    },
+    {
       "name": "alpha",
-      "string": "string"
+      "string": "alpha"
     }
   ]
 }
