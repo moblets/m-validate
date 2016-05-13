@@ -12,7 +12,7 @@ describe('validation', function() {
   it('should success with alpha only letters', function() {
     var content = {
       password: "1234",
-      alpha: "qwerty"
+      alpha: "qwerty.a,!,-a?"
     };
 
     var result = validate(content, definitionFields);
@@ -22,7 +22,7 @@ describe('validation', function() {
   it('should error with alpha begin with number', function() {
     var content = {
       password: "1234",
-      alpha: "1qwerty"
+      alpha: "1qwerty@"
     };
     var result = validate(content, definitionFields);
     expect(result.alpha.string).toBe("not_an_alpha");
@@ -31,7 +31,7 @@ describe('validation', function() {
   it('should error with alpha end in number', function() {
     var content = {
       password: "1234",
-      alpha: "qwerty1"
+      alpha: "qwerty1#"
     };
     var result = validate(content, definitionFields);
     expect(result.alpha.string).toBe("not_an_alpha");
@@ -40,7 +40,7 @@ describe('validation', function() {
   it('should error with alpha contain number', function() {
     var content = {
       password: "1234",
-      alpha: "qwer2ty"
+      alpha: "qwer2ty%"
     };
     var result = validate(content, definitionFields);
     expect(result.alpha.string).toBe("not_an_alpha");
