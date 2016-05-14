@@ -1,3 +1,6 @@
+/* eslint no-control-regex: [0] */
+/* eslint "max-len": [0, {ignorePattern: "^\/.*\/"}] */
+
 var moment = require('moment');
 module.exports = function(theType, theData, theValues) {
   var response = true;
