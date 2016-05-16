@@ -16,6 +16,7 @@ describe('validation', function() {
     };
 
     var result = validate(content, definitionFields);
+    console.log(result);
     expect(result.file).toEqual({});
   });
 
