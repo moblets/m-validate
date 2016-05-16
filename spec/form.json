@@ -115,8 +115,52 @@
       "type": "tel"
     },
     {
-      "name": "alpha",
+      "name": "userAlpha",
       "string": "alpha"
+    },
+    {
+      "name": "userAlphaSpace",
+      "string": "alphaSpace"
+    },
+    {
+      "name": "userAlphaDash",
+      "string": "alphaDash"
+    },
+    {
+      "name": "userAlphaSymbol",
+      "string": "alphaSymbol"
+    },
+    {
+      "name": "userAlphaNumeric",
+      "string": "alphaNumeric"
+    },
+    {
+      "name": "userAlphaNumericSpace",
+      "string": "alphaNumericSpace"
+    },
+    {
+      "name": "userAlphaNumericDash",
+      "string": "alphaNumericDash"
+    },
+    {
+      "name": "userAlphaNumericSymbol",
+      "string": "alphaNumericSymbol"
+    },
+    {
+      "name": "userNumeric",
+      "string": "numeric"
+    },
+    {
+      "name": "userNumericFloat",
+      "string": "numericFloat"
+    },
+    {
+      "name": "userNumericDash",
+      "string": "numericDash"
+    },
+    {
+      "name": "userNumericSymbol",
+      "string": "numericSymbol"
     }
   ]
 }

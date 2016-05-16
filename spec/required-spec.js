@@ -9,7 +9,7 @@ describe('validation', function() {
   var definition = JSON.parse(definitionContent);
   var definitionFields = definition.fields;
 
-  it('it should respond with success for required fields', function() {
+  it('should respond with success for required fields', function() {
     var content = {
       password: "1234"
     };
