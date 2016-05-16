@@ -33,7 +33,6 @@ var validate = function(content, properties) {
         var ccRule = rule.replace(/-([a-z])/g, function(g) {
           return g[1].toUpperCase();
         });
-
         // Validate all rules existing in the validation functions
         // Ignore "name" and keys that don't have a validation deffined
         if (
