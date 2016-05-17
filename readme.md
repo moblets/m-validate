@@ -5,7 +5,7 @@
 ![stars](https://img.shields.io/github/stars/moblets/m-validate.svg?style=flat-square)
 ![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
 
-Moblets' NodeJS simple validation to validate data based on a deffinition JSon.
+Moblets' NodeJS simple validation to validate data based on a definition JSon.
 
 ## Installation
 
@@ -13,6 +13,388 @@ Moblets' NodeJS simple validation to validate data based on a deffinition JSon.
 $ npm install --save m-validate
 ```
 
+## Available validations
+Validations were created for **input type**, **length**, **required** and **string**.
+
+### Input type validation
+These are all HTML 5 input type validations.
+
+#### number
+Check input type number for integers.
+
+**Usage**
+
+Definition JSon
+```json
+{
+  "name": "Number of friends",
+  "type": "number"
+}
+```
+
+**Error response:** *not_a_number*
+
+#### select, radio and checkbox
+Check if the response belongs to the possible values.
+
+**Usage**
+
+Definition JSon
+
+```json
+{
+  "name": "position",
+  "type": "radio",
+  "values": {
+    "left": "value_left",
+    "right": "value_right",
+    "up": "value_up",
+    "down": "value_down"
+  }
+}
+```
+If the value is _left, right, up or down_, it will be validated.
+
+**Error response:** *not_in_the_select_list*, *not_in_the_radio_list* or *not_in_the_checkbox_list*
+
+#### color
+Check if the response is a valid HTML 5, hexadecimal color, like '#FF0033'.
+
+**Usage**
+
+Definition JSon
+```json
+{
+  "name": "themeColor",
+  "type": "color"
+}
+```
+
+**Error response:** *not_a_color*
+
+#### date
+Check if the response is a valid HTML 5, 'YYYY-MM-DD' date.
+
+**Usage**
+
+Definition JSon
+```json
+{
+  "name": "birthDay",
+  "type": "date"
+}
+```
+**Error response:** *not_a_date*
+
+#### time
+Check if the response is a valid HTML 5, 'H:mm' time.
+
+**Usage**
+
+Definition JSon
+```json
+{
+  "name": "arrival",
+  "type": "time"
+}
+```
+**Error response:** *not_a_time*
+
+#### email
+Check if the response is a valid email.
+
+**Usage**
+
+Definition JSon
+```json
+{
+  "name": "userEmail",
+  "type": "email"
+}
+```
+**Error response:** *not_an_email*
+
+#### url
+Check if the response is a valid url.
+
+**Usage**
+
+Definition JSon
+```json
+{
+  "name": "siteUrl",
+  "type": "url"
+}
+```
+**Error response:** *not_an_url*
+
+#### tel
+Check if the response is a phone. It's a generic phone validator that accepts international (with plus sign) and local phones (with or without paranthesis).
+
+**Usage**
+
+Definition JSon
+```json
+{
+  "name": "cellNumber",
+  "type": "tel"
+}
+```
+**Error response:** *not_a_tel*
+
+### Length validation
+These two validations are for generic strings to define it's min and max length.
+
+**Usage**
+
+Definition JSon
+
+```json
+{
+  "name": "pinCode",
+  "min-length": 4,
+  "max-length": 8
+}
+```
+
+**Error response:** *must_be_min: 4* or *must_be_max: 8*
+
+### Required validation
+This validation checks if the required value is available in the POST JSon.
+
+**Usage**
+
+Definition JSon
+
+```json
+{
+  "name": "name",
+  "required": true
+}
+```
+
+**Error response:** *field_is_required*
+
+### String validations
+These are validations for specific kinds of strings, that must help creating validations tom many field types.
+
+#### alpha
+This validation require the data to be only letters and accented letters (A-z and À-ÿ).
+
+**Usage**
+
+Definition JSon
+
+```json
+{
+  "name": "firstName",
+  "type": "text",
+  "string": "alpha"
+}
+```
+
+**Error response:** *not_an_alpha*
+
+#### alphaSpace
+This validation require the data to be only letters, accented letters and spaces (A-z, À-ÿ and ' ').
+
+**Usage**
+
+Definition JSon
+
+```json
+{
+  "name": "fullName",
+  "type": "text",
+  "string": "alphaSpace"
+}
+```
+
+**Error response:** *not_an_alpha_space*
+
+#### alphaDash
+This validation require the data to be only letters, accented letters and dashes (A-z, À-ÿ, - and \_).
+
+**Usage**
+
+Definition JSon
+
+```json
+{
+  "name": "serialNumber",
+  "type": "text",
+  "string": "alphaDash"
+}
+```
+**Error response:** *not_an_alpha_dash*
+
+#### alphaSymbol
+This validation require the data to be letters, accented letters and many symbols:
+
+|  A-z  |  À-ÿ  |   \-   |   _   | . | , | ! | @ |
+|-------|-------|-------|-------|-------|-------|-------|-------|
+| **#** | **$** | **%** | **^** | **{** | **}** | **[** | **]** |
+| **&** | **\*** | **(** | **)** | **<** | **>** | **+** | **=** |
+| **?** | **:** | **;** | **"&nbsp;"** |
+
+**Usage**
+
+Definition JSon
+
+```json
+{
+  "name": "address",
+  "type": "text",
+  "string": "alphaSymbol"
+}
+```
+**Error response:** *not_an_alpha_symbol*
+
+#### alphaNumeric
+This validation require the data to be letters, accented letters and numbers (A-z, À-ÿ and 0-9).
+
+**Usage**
+
+Definition JSon
+
+```json
+{
+  "name": "code",
+  "type": "text",
+  "string": "alphaNumeric"
+}
+```
+**Error response:** *not_an_alpha_numeric*
+
+#### alphaNumericSpace
+This validation require the data to be letters, accented letters, numbers and space (A-z, À-ÿ, 0-9 and ' ').
+
+**Usage**
+
+Definition JSon
+
+```json
+{
+  "name": "keyCode",
+  "type": "text",
+  "string": "alphaNumericSpace"
+}
+```
+**Error response:** *not_an_alpha_numeric_space*
+
+#### alphaNumericDash
+This validation require the data to be letters, accented letters, numbers and space (A-z, À-ÿ, 0-9, - and \_).
+
+**Usage**
+
+Definition JSon
+
+```json
+{
+  "name": "serialNumber",
+  "type": "text",
+  "string": "alphaNumericDash"
+}
+```
+
+**Error response:** *not_an_alpha_numeric_dash*
+
+#### alphaNumericSymbol
+This validation require the data to be letters, accented letters, numbers and many symbols:
+
+|  A-z  |  À-ÿ  |   0-9   |   "&nbsp;"   | . | , | ! | @ |
+|-------|-------|-------|-------|-------|-------|-------|-------|
+| **#** | **$** | **%** | **^** | **&** | **\*** | **(** | **)** |
+| **{** | **}** | **[** | **]** | **<** | **>** | **+** | **=** |
+| **?** | **:** | **;** | **-** | **\_** |  |  |  |
+
+**Usage**
+
+Definition JSon
+
+```json
+{
+  "name": "serialNumber",
+  "type": "text",
+  "string": "alphaNumericSymbol"
+}
+```
+
+**Error response:** *not_an_alpha_numeric_symbol*
+
+#### numeric
+This validation require the data to be numbers (0-9).
+
+**Usage**
+
+Definition JSon
+
+```json
+{
+  "name": "products",
+  "type": "text",
+  "string": "numeric"
+}
+```
+
+**Error response:** *not_a_numeric*
+
+#### numericFloat
+This validation require the data to be numbers, -, . and , (0-9.,-).
+
+**Usage**
+
+Definition JSon
+
+```json
+{
+  "name": "price",
+  "type": "text",
+  "string": "numericFloat"
+}
+```
+
+**Error response:** *not_a_numeric_float*
+
+#### numericDash
+This validation require the data to be numbers, -, \_, . and , (0-9.,-\_).
+
+**Usage**
+
+Definition JSon
+
+```json
+{
+  "name": "balance",
+  "type": "text",
+  "string": "numericDash"
+}
+```
+
+**Error response:** *not_a_numeric_dash*
+
+#### numericSymbol
+This validation require the data to be numbers and many symbols:
+
+|  0-9  |  "&nbsp;"  |   0-9   |   _   | . | , | ! | @ |
+|-------|-------|-------|-------|-------|-------|-------|-------|
+| **#** | **$** | **%** | **^** | **&** | **\*** | **(** | **)** |
+| **{** | **}** | **[** | **]** | **<** | **>** | **+** | **=** |
+| **?** | **:** | **;** | **-** |
+
+**Usage**
+
+Definition JSon
+
+```json
+{
+  "name": "code",
+  "type": "text",
+  "string": "numericSymbol"
+}
+```
+
+**Error response:** *not_a_numeric_symbol*
 
 ## Pre requisites
 

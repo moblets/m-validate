@@ -61,7 +61,7 @@ module.exports = function(theType, theData) {
         break;
 
       case "numericFloat":
-        var numericSpace = /^[0-9.,]*$/;
+        var numericSpace = /^[0-9.,\-]*$/;
         if (!numericSpace.test(theData)) {
           response = 'not_a_numeric_float';
         }

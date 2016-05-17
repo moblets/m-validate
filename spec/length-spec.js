@@ -27,7 +27,7 @@ describe('validation', function() {
     var result = validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.password['max-length'])
-      .toBe('must_be_more_than_chars: 4');
+      .toBe('must_be_max: 4');
   });
 
   it('should respond with error for password min-length', function() {
@@ -38,6 +38,6 @@ describe('validation', function() {
     var result = validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.password['min-length'])
-      .toBe('must_be_at_least_chars: 4');
+      .toBe('must_be_min: 4');
   });
 });
