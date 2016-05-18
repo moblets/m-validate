@@ -1,6 +1,6 @@
 {
   "name": "m-validate",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "description": "NodeJS simple validation functions",
   "main": "m-validate.js",
   "scripts": {
