@@ -224,7 +224,7 @@ describe('validation', function() {
   it('should respond with error with numericFloat', function() {
     var content = {
       password: "1234",
-      userNumericFloat: "1,234-"
+      userNumericFloat: "(1,234)"
     };
 
     var result = validate(content, definitionFields);

@@ -294,15 +294,15 @@ describe('validation', function() {
     expect(result.result.siteaddress).toEqual({});
   });
 
-  it('should respond with success for url type (without http)', function() {
+  it('should respond with error for url type (without http)', function() {
     var content = {
       password: "1234",
       siteaddress: "russo.fabapp.com"
     };
 
     var result = validate(content, definitionFields);
-    expect(result.error).toBe(false);
-    expect(result.result.siteaddress).toEqual({});
+    expect(result.error).toBe(true);
+    expect(result.result.siteaddress.type).toBe('not_an_url');
   });
 
   it('should respond with error for url type (.com)', function() {
