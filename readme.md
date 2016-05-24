@@ -173,7 +173,7 @@ Definition JSon
 {
   "name": "precision",
   "more-than-or-equal": 3,
-  "less-than-or-euqual": 8.6
+  "less-than-or-equal": 8.6
 }
 ```
 
