@@ -142,6 +142,43 @@ Definition JSon
 ```
 **Error response:** *not_a_tel*
 
+### Value validation
+These four validations are for numbers to define it's min and max values.
+
+#### lessThan and moreThan
+These validations require the data to be a number (int or float) that is 'less than' and/or 'more than' the chosen values.
+
+**Usage**
+
+Definition JSon
+
+```json
+{
+  "name": "zoom",
+  "more-than": 0.1,
+  "less-than": 10.4
+}
+```
+
+**Error response:** *must_be_more_than: 0.1* or *must_be_less_than: 10.4*
+
+#### lessThanOrEqual and moreThanOrEqual
+These validations require the data to be a number (int or float) that is 'less than or equal' and/or 'more than or equal' the chosen values.
+
+**Usage**
+
+Definition JSon
+
+```json
+{
+  "name": "precision",
+  "more-than-or-equal": 3,
+  "less-than-or-euqual": 8.6
+}
+```
+
+**Error response:** *must_be_more_than_or_equal: 3* or *must_be_less_than_or_equal: 8.6*
+
 ### Length validation
 These two validations are for generic strings to define it's min and max length.
 

@@ -1,14 +1,19 @@
-var type = require('./validations/type.js');
 var length = require('./validations/length.js');
 var required = require('./validations/required.js');
 var string = require('./validations/string.js');
+var type = require('./validations/type.js');
+var value = require('./validations/value.js');
 
 var validations = {
   type: type,
   minLength: length.min,
   maxLength: length.max,
   required: required,
-  string: string
+  string: string,
+  lessThan: value.lessThan,
+  lessThanOrEqual: value.lessThanOrEqual,
+  moreThan: value.moreThan,
+  moreThanOrEqual: value.moreThanOrEqual
 };
 
 var validate = function(content, properties) {

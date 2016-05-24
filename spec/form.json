@@ -161,6 +161,30 @@
     {
       "name": "userNumericSymbol",
       "string": "numericSymbol"
+    },
+    {
+      "name": "zoom",
+      "type": "number",
+      "more-than": 1,
+      "less-than": "10"
+    },
+    {
+      "name": "precision",
+      "type": "text",
+      "more-than": 1.3,
+      "less-than": 1.9
+    },
+    {
+      "name": "avenue",
+      "type": "number",
+      "more-than-or-equal": 1,
+      "less-than-or-equal": "80"
+    },
+    {
+      "name": "timePrecision",
+      "type": "text",
+      "more-than-or-equal": 0.001,
+      "less-than-or-equal": 0.031
     }
   ]
 }
