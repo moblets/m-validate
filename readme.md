@@ -1,9 +1,10 @@
 # m-validate
 
-[![npm](https://img.shields.io/npm/v/npm.svg?maxAge=2592000&style=flat-square)](https://www.npmjs.com/package/m-validate)
-[![npm](https://img.shields.io/npm/dt/express.svg?maxAge=2592000&style=flat-square)](https://www.npmjs.com/package/m-validate)
-![stars](https://img.shields.io/github/stars/moblets/m-validate.svg?style=flat-square)
-![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
+[![npm](https://img.shields.io/npm/v/m-validate.svg?maxAge=2592000&style=flat-square)](https://www.npmjs.com/package/m-validate)
+[![npm](https://img.shields.io/npm/dt/m-validate.svg?maxAge=2592000&style=flat-square)](https://www.npmjs.com/package/m-validate)
+[![stars](https://img.shields.io/github/stars/moblets/m-validate.svg?maxAge=2592000&style=flat-square)](https://github.com/moblets/m-validate)
+[![GitHub forks](https://img.shields.io/github/forks/moblets/m-validate.svg?maxAge=2592000&style=flat-square)](https://github.com/moblets/m-validate/network)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg?maxAge=2592000&style=flat-square)](https://github.com/moblets/m-validate#license)
 
 Moblets' NodeJS simple validation to validate data based on a definition JSon.
 
