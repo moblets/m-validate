@@ -18,8 +18,9 @@ var validations = {
   moreThanOrEqual: value.moreThanOrEqual
 };
 
-var MValidate = function(localesConfig) {
+var MValidate = function(localesConfig, locale) {
   this.i18n = new Localization(localesConfig);
+  this.i18n.setLocale(locale);
 };
 
 MValidate.prototype.validate = function(content, properties) {
@@ -55,7 +56,14 @@ MValidate.prototype.validate = function(content, properties) {
               property.values
             );
           if (validationResult !== true) {
-            (response[fieldName])[rule] = this.i18n.__(validationResult);
+            var splitedResponse = validationResult.split(': ');
+            if (splitedResponse.length > 1) {
+              (response[fieldName])[rule] = this.i18n
+                .__(splitedResponse[0] + ': %s', splitedResponse[1]);
+            } else {
+              (response[fieldName])[rule] = this.i18n
+              .__(validationResult);
+            }
             error = true;
           }
         }

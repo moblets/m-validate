@@ -2,7 +2,15 @@
 var fs = require('fs');
 
 describe('validation', function() {
-  var validate = require('../m-validate.js');
+  var MValidate = require('../m-validate');
+  var validator = new MValidate({
+    locales: [
+      'en-US',
+      'pt-BR'
+    ],
+    directory: './spec/locales',
+    extension: '.json'
+  }, 'en-US');
 
   var definitionPath = './spec/form.json';
   var definitionContent = fs.readFileSync(definitionPath, 'utf8');
@@ -14,7 +22,7 @@ describe('validation', function() {
       password: "1234"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.password).toEqual({});
     expect(result.result.description).toEqual({});
@@ -28,7 +36,7 @@ describe('validation', function() {
       birthDay: "1979-03-17"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.password.required).toBe('field_is_required');
     expect(result.result.birthDay).toEqual({});

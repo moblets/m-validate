@@ -2,7 +2,15 @@
 var fs = require('fs');
 
 describe('validation', function() {
-  var validate = require('../m-validate.js');
+  var MValidate = require('../m-validate');
+  var validator = new MValidate({
+    locales: [
+      'en-US',
+      'pt-BR'
+    ],
+    directory: './spec/locales',
+    extension: '.json'
+  }, 'pt-BR');
 
   var definitionPath = './spec/form.json';
   var definitionContent = fs.readFileSync(definitionPath, 'utf8');
@@ -14,7 +22,7 @@ describe('validation', function() {
       password: "1234"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.password).toEqual({});
   });
@@ -24,7 +32,7 @@ describe('validation', function() {
       password: "12s4"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.password.type).toBe('not_a_number');
   });
@@ -35,7 +43,7 @@ describe('validation', function() {
       quantity: "2"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.quantity).toEqual({});
   });
@@ -46,7 +54,7 @@ describe('validation', function() {
       quantity: "5"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.quantity.type).toBe('not_in_the_select_list');
   });
@@ -57,7 +65,7 @@ describe('validation', function() {
       position: "right"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.position).toEqual({});
   });
@@ -68,7 +76,7 @@ describe('validation', function() {
       position: "top"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.position.type).toBe('not_in_the_radio_list');
   });
@@ -79,7 +87,7 @@ describe('validation', function() {
       color: "green"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.color).toEqual({});
   });
@@ -90,7 +98,7 @@ describe('validation', function() {
       color: "black"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.color.type).toBe('not_in_the_checkbox_list');
   });
@@ -101,7 +109,7 @@ describe('validation', function() {
       themeColor: "#FF12cc"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.themeColor).toEqual({});
   });
@@ -112,7 +120,7 @@ describe('validation', function() {
       themeColor: "#123"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.themeColor.type).toBe('not_a_color');
   });
@@ -123,7 +131,7 @@ describe('validation', function() {
       birthDay: "1979-03-17"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.birthDay).toEqual({});
   });
@@ -134,7 +142,7 @@ describe('validation', function() {
       birthDay: "17/03/1979"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.birthDay.type).toBe('not_a_date');
   });
@@ -145,7 +153,7 @@ describe('validation', function() {
       birthDay: "2016-04-31 "
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.birthDay.type).toBe('not_a_date');
   });
@@ -156,7 +164,7 @@ describe('validation', function() {
       arrival: "03:14"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.arrival).toEqual({});
   });
@@ -167,7 +175,7 @@ describe('validation', function() {
       arrival: "24:14"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.arrival.type).toBe('not_a_time');
   });
@@ -178,7 +186,7 @@ describe('validation', function() {
       arrival: "3:14"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.arrival).toEqual({});
   });
@@ -189,7 +197,7 @@ describe('validation', function() {
       arrival: "03:14"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.arrival).toEqual({});
   });
@@ -200,7 +208,7 @@ describe('validation', function() {
       email: "russo@gmail.co"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.email).toEqual({});
   });
@@ -212,7 +220,7 @@ describe('validation', function() {
         email: "russo@gmail.com.com.br"
       };
 
-      var result = validate(content, definitionFields);
+      var result = validator.validate(content, definitionFields);
       expect(result.error).toBe(false);
       expect(result.result.email).toEqual({});
     });
@@ -223,7 +231,7 @@ describe('validation', function() {
       email: "r@mob.cc"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.email).toEqual({});
   });
@@ -234,7 +242,7 @@ describe('validation', function() {
       email: "russo@fabapp"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.email.type).toBe('not_an_email');
   });
@@ -245,7 +253,7 @@ describe('validation', function() {
       siteaddress: "http://fabapp.com/teste.com/br"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.siteaddress).toEqual({});
   });
@@ -256,7 +264,7 @@ describe('validation', function() {
       siteaddress: "http://e.russo.fab.mobi.com.br.mobi/"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.siteaddress).toEqual({});
   });
@@ -267,7 +275,7 @@ describe('validation', function() {
       siteaddress: "http://m.app.vc/rlbaladas#/home?olar=teste&teste=olar"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.siteaddress).toEqual({});
   });
@@ -278,7 +286,7 @@ describe('validation', function() {
       siteaddress: "https://universo.mobi"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.siteaddress).toEqual({});
   });
@@ -289,7 +297,7 @@ describe('validation', function() {
       siteaddress: "http://g.google"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.siteaddress).toEqual({});
   });
@@ -300,7 +308,7 @@ describe('validation', function() {
       siteaddress: "russo.fabapp.com"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.siteaddress.type).toBe('not_an_url');
   });
@@ -311,7 +319,7 @@ describe('validation', function() {
       siteaddress: "http://.com"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.siteaddress.type).toBe('not_an_url');
   });
@@ -322,7 +330,7 @@ describe('validation', function() {
       siteaddress: "http://test.com?query=false?repeat=question"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.siteaddress).toEqual({});
   });
@@ -343,7 +351,7 @@ describe('validation', function() {
       phone11: "9999  9999"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.phone1).toEqual({});
     expect(result.result.phone2).toEqual({});
@@ -374,7 +382,7 @@ describe('validation', function() {
       phone11: "kla urg"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.phone1.type).toBe('not_a_tel');
     expect(result.result.phone2.type).toBe('not_a_tel');

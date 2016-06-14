@@ -496,13 +496,26 @@ And you must have the data to be validated:
 
 ## Usage
 
-Just call the validation with the definition and the data:
+First, you need to configure the language (m-validate uses [i18n-2](https://www.npmjs.com/package/i18n-2)) passing a config object and the language you want your response.
+
+i18n-2 will create the language files as they are needed, but you can set all translations using [this base file](https://raw.githubusercontent.com/moblets/m-validate/master/spec/locales/en-US.json).
 
 ```javascript
-// Get the definition json here
-var validate = require('m-validate');
+var MValidate = require('../m-validate');
+// The object is a i18n-2 config object. The second parameter is the locale
+var validator = new MValidate({
+  locales: [
+    'en-US',
+    'pt-BR'
+  ],
+  directory: './locales',
+  extension: '.json'
+},
+ 'pt-BR');
+
 var fs = require('fs');
 
+// Get the definition json here
 var definitionPath = 'form.json';
 var definitionContent = fs.readFileSync(definitionPath, 'utf8');
 var definition = JSON.parse(definitionContent);
@@ -512,14 +525,14 @@ var definitionFields = definition.fields;
 var content = req.body;
 
 // Response variable will have the result
-var response = validate(content, mobletDefinitionFields);
+var response = validator.validate(content, mobletDefinitionFields);
 ```
 
 The validation response will be an object with two items: a **boolean** and an **object**.
 
 The **boolean** is called **"error"** and will be true if **any of the validations did not pass**.
 
-The **object** is called **"result"** and will have all the **validated fields** as an object. If any validation failed, this object will have the validation type and the result, for instance:
+The **object** is called **"result"** and will have all the **validated fields** as an object. If any validation failed, this object will have the translated validation type and the result, for instance:
 
 ```javascript
 {
@@ -550,6 +563,8 @@ The **object** is called **"result"** and will have all the **validated fields**
   }
 }
 ```
+
+You can check the [tests](https://github.com/moblets/m-validate/tree/develop/spec) to see it in action.
 
 ## License
 

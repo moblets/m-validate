@@ -2,7 +2,15 @@
 var fs = require('fs');
 
 describe('validation', function() {
-  var validate = require('../m-validate.js');
+  var MValidate = require('../m-validate');
+  var validator = new MValidate({
+    locales: [
+      'en-US',
+      'pt-BR'
+    ],
+    directory: './spec/locales',
+    extension: '.json'
+  }, 'pt-BR');
 
   var definitionPath = './spec/form.json';
   var definitionContent = fs.readFileSync(definitionPath, 'utf8');
@@ -15,7 +23,7 @@ describe('validation', function() {
       zoom: "3"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.zoom).toEqual({});
   });
@@ -25,7 +33,7 @@ describe('validation', function() {
       zoom: "0"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.zoom['more-than']).toBe('must_be_more_than: 1');
   });
@@ -35,7 +43,7 @@ describe('validation', function() {
       zoom: "1"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.zoom['more-than']).toBe('must_be_more_than: 1');
   });
@@ -46,7 +54,7 @@ describe('validation', function() {
         precision: "1.4"
       };
 
-      var result = validate(content, definitionFields);
+      var result = validator.validate(content, definitionFields);
       expect(result.error).toBe(false);
       expect(result.result.precision).toEqual({});
     });
@@ -56,7 +64,7 @@ describe('validation', function() {
       precision: 1
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.precision['more-than']).toBe('must_be_more_than: 1.3');
   });
@@ -66,7 +74,7 @@ describe('validation', function() {
       precision: "1.91"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.precision['less-than']).toBe('must_be_less_than: 1.9');
   });
@@ -78,7 +86,7 @@ describe('validation', function() {
       zoom: "15"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.zoom['less-than']).toBe('must_be_less_than: 10');
   });
@@ -88,7 +96,7 @@ describe('validation', function() {
       zoom: "10"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.zoom['less-than']).toBe('must_be_less_than: 10');
   });
@@ -99,7 +107,7 @@ describe('validation', function() {
         avenue: "1"
       };
 
-      var result = validate(content, definitionFields);
+      var result = validator.validate(content, definitionFields);
       expect(result.error).toBe(false);
       expect(result.result.avenue).toEqual({});
     });
@@ -110,7 +118,7 @@ describe('validation', function() {
         timePrecision: "0.001"
       };
 
-      var result = validate(content, definitionFields);
+      var result = validator.validate(content, definitionFields);
       expect(result.error).toBe(false);
       expect(result.result.timePrecision).toEqual({});
     });
@@ -120,7 +128,7 @@ describe('validation', function() {
       avenue: "0"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.avenue['more-than-or-equal'])
       .toBe('must_be_more_than_or_equal: 1');
@@ -131,7 +139,7 @@ describe('validation', function() {
       timePrecision: "0"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.timePrecision['more-than-or-equal'])
       .toBe('must_be_more_than_or_equal: 0.001');
@@ -143,7 +151,7 @@ describe('validation', function() {
         avenue: "80"
       };
 
-      var result = validate(content, definitionFields);
+      var result = validator.validate(content, definitionFields);
       expect(result.error).toBe(false);
       expect(result.result.avenue).toEqual({});
     });
@@ -153,7 +161,7 @@ describe('validation', function() {
       avenue: "81"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.avenue['less-than-or-equal'])
       .toBe('must_be_less_than_or_equal: 80');
@@ -164,7 +172,7 @@ describe('validation', function() {
       timePrecision: "0.3"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.timePrecision['less-than-or-equal'])
       .toBe('must_be_less_than_or_equal: 0.031');

@@ -2,7 +2,15 @@
 var fs = require("fs");
 
 describe('validation', function() {
-  var validate = require('../m-validate.js');
+  var MValidate = require('../m-validate');
+  var validator = new MValidate({
+    locales: [
+      'en-US',
+      'pt-BR'
+    ],
+    directory: './spec/locales',
+    extension: '.json'
+  }, 'en-US');
 
   var definitionPath = './spec/form.json';
   var definitionContent = fs.readFileSync(definitionPath, 'utf8');
@@ -15,7 +23,7 @@ describe('validation', function() {
       userAlpha: "Éros"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.userAlpha).toEqual({});
   });
@@ -26,7 +34,7 @@ describe('validation', function() {
       userAlpha: "Olar amigo"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.userAlpha.string).toBe('not_an_alpha');
   });
@@ -37,7 +45,7 @@ describe('validation', function() {
       userAlphaSpace: "Éros Ramaroti Jr"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.userAlphaSpace).toEqual({});
   });
@@ -48,7 +56,7 @@ describe('validation', function() {
       userAlphaSpace: "Éros Ramaroti 1"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.userAlphaSpace.string).toBe('not_an_alpha_space');
   });
@@ -59,7 +67,7 @@ describe('validation', function() {
       userAlphaDash: "Éros-Ramaroti_Jr"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.userAlphaDash).toEqual({});
   });
@@ -70,7 +78,7 @@ describe('validation', function() {
       userAlphaDash: "Éros–Ramaroti"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.userAlphaDash.string).toBe('not_an_alpha_dash');
   });
@@ -81,7 +89,7 @@ describe('validation', function() {
       userAlphaSymbol: "Éros&Ramaroti_Jr!?"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.userAlphaSymbol).toEqual({});
   });
@@ -92,7 +100,7 @@ describe('validation', function() {
       userAlphaSymbol: "Éros–Ramaroti†¥"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.userAlphaSymbol.string).toBe('not_an_alpha_symbol');
   });
@@ -103,7 +111,7 @@ describe('validation', function() {
       userAlphaNumeric: "ContandoÉ1234"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.userAlphaNumeric).toEqual({});
   });
@@ -114,7 +122,7 @@ describe('validation', function() {
       userAlphaNumeric: "Contando,queÉ1234"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.userAlphaNumeric.string).toBe('not_an_alpha_numeric');
   });
@@ -125,7 +133,7 @@ describe('validation', function() {
       userAlphaNumericSpace: "Contando que É 1234"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.userAlphaNumericSpace).toEqual({});
   });
@@ -136,7 +144,7 @@ describe('validation', function() {
       userAlphaNumericSpace: "Contando, que É 1234"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.userAlphaNumericSpace.string)
       .toBe('not_an_alpha_numeric_space');
@@ -148,7 +156,7 @@ describe('validation', function() {
       userAlphaNumericDash: "Contando-que_É-1234"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.userAlphaNumericDash).toEqual({});
   });
@@ -159,7 +167,7 @@ describe('validation', function() {
       userAlphaNumericDash: "Contando que-É_1234"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.userAlphaNumericDash.string)
       .toBe('not_an_alpha_numeric_dash');
@@ -171,7 +179,7 @@ describe('validation', function() {
       userAlphaNumericSymbol: "Contando que &É 1234!"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.userAlphaNumericSymbol).toEqual({});
   });
@@ -182,7 +190,7 @@ describe('validation', function() {
       userAlphaNumericSymbol: "Contando que É ¬ 1234"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.userAlphaNumericSymbol.string)
       .toBe('not_an_alpha_numeric_symbol');
@@ -194,7 +202,7 @@ describe('validation', function() {
       userNumeric: "1234"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.userNumeric).toEqual({});
   });
@@ -205,7 +213,7 @@ describe('validation', function() {
       userNumeric: "1.234"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.userNumeric.string).toBe('not_a_numeric');
   });
@@ -216,7 +224,7 @@ describe('validation', function() {
       userNumericFloat: "1.23,4"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.userNumericFloat).toEqual({});
   });
@@ -227,7 +235,7 @@ describe('validation', function() {
       userNumericFloat: "(1,234)"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.userNumericFloat.string).toBe('not_a_numeric_float');
   });
@@ -238,7 +246,7 @@ describe('validation', function() {
       userNumericDash: "1.23-4"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.userNumericDash).toEqual({});
   });
@@ -249,7 +257,7 @@ describe('validation', function() {
       userNumericDash: "1,234 -"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.userNumericDash.string).toBe('not_a_numeric_dash');
   });
@@ -260,7 +268,7 @@ describe('validation', function() {
       userNumericSymbol: "1.23-4?!&"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(false);
     expect(result.result.userNumericSymbol).toEqual({});
   });
@@ -271,7 +279,7 @@ describe('validation', function() {
       userNumericSymbol: "1,234 ∆"
     };
 
-    var result = validate(content, definitionFields);
+    var result = validator.validate(content, definitionFields);
     expect(result.error).toBe(true);
     expect(result.result.userNumericSymbol.string).toBe('not_a_numeric_symbol');
   });
