@@ -59,7 +59,7 @@ MValidate.prototype.validate = function(content, properties) {
             var splitedResponse = validationResult.split(': ');
             if (splitedResponse.length > 1) {
               (response[fieldName])[rule] = this.i18n
-                .__(splitedResponse[0] + ': %s', splitedResponse[1]);
+                .__(splitedResponse[0] + ': %d', splitedResponse[1]);
             } else {
               (response[fieldName])[rule] = this.i18n
               .__(validationResult);
