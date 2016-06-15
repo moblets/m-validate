@@ -1,6 +1,16 @@
 {
-	"must_be_max: %s": "must_be_max: %s",
-	"must_be_min: %s": "must_be_min: %s",
+	"must_be_max: %d": {
+		"one": "must_be_max: %d",
+		"other": "must_be_max: %d"
+	},
+	"must_be_min: %d": {
+		"one": "must_be_min: %d",
+		"other": "must_be_min: %d"
+	},
+	"must_be_more_than: %d": "must_be_more_than: %d",
+	"must_be_less_than: %d": "must_be_less_than: %d",
+	"must_be_more_than_or_equal: %d": "must_be_more_than_or_equal: %d",
+	"must_be_less_than_or_equal: %d": "must_be_less_than_or_equal: %d",
 	"field_is_required": "field_is_required",
 	"not_an_alpha": "not_an_alpha",
 	"not_an_alpha_space": "not_an_alpha_space",
