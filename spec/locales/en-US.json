@@ -1,16 +1,16 @@
 {
-	"must_be_max: %d": {
-		"one": "must_be_max: %d",
-		"other": "must_be_max: %d"
+	"must_be_max: %f": {
+		"one": "must_be_max: %f",
+		"other": "must_be_max: %f"
 	},
-	"must_be_min: %d": {
-		"one": "must_be_min: %d",
-		"other": "must_be_min: %d"
+	"must_be_min: %f": {
+		"one": "must_be_min: %f",
+		"other": "must_be_min: %f"
 	},
-	"must_be_more_than: %d": "must_be_more_than: %d",
-	"must_be_less_than: %d": "must_be_less_than: %d",
-	"must_be_more_than_or_equal: %d": "must_be_more_than_or_equal: %d",
-	"must_be_less_than_or_equal: %d": "must_be_less_than_or_equal: %d",
+	"must_be_more_than: %f": "must_be_more_than: %f",
+	"must_be_less_than: %f": "must_be_less_than: %f",
+	"must_be_more_than_or_equal: %f": "must_be_more_than_or_equal: %f",
+	"must_be_less_than_or_equal: %f": "must_be_less_than_or_equal: %f",
 	"field_is_required": "field_is_required",
 	"not_an_alpha": "not_an_alpha",
 	"not_an_alpha_space": "not_an_alpha_space",
@@ -33,9 +33,5 @@
 	"not_a_time": "not_a_time",
 	"not_an_email": "not_an_email",
 	"not_an_url": "not_an_url",
-	"not_a_tel": "not_a_tel",
-	"must_be_more_than: %s": "must_be_more_than: %s",
-	"must_be_less_than: %s": "must_be_less_than: %s",
-	"must_be_more_than_or_equal: %s": "must_be_more_than_or_equal: %s",
-	"must_be_less_than_or_equal: %s": "must_be_less_than_or_equal: %s"
+	"not_a_tel": "not_a_tel"
 }
