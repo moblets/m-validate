@@ -1,5 +1,7 @@
 # m-validate
 
+![m-validate](m-validate-logo.png)
+
 [![npm](https://img.shields.io/npm/v/m-validate.svg?maxAge=2592000&style=flat-square)](https://www.npmjs.com/package/m-validate)
 [![npm](https://img.shields.io/npm/dt/m-validate.svg?maxAge=2592000&style=flat-square)](https://www.npmjs.com/package/m-validate)
 [![stars](https://img.shields.io/github/stars/moblets/m-validate.svg?maxAge=2592000&style=flat-square)](https://github.com/moblets/m-validate)

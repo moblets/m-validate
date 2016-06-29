@@ -1,12 +1,12 @@
 {
 	"must_be_max: %f": {
-		"one": "field must have less than %f character",
-		"other": "field must have less than %f characters"
-	},
+    "one": "field must have less than %f character",
+    "other": "field must have less than %f characters"
+  },
 	"must_be_min: %f": {
-		"one": "field must have more than %f character",
-		"other": "field must have more than %f characters"
-	},
+    "one": "field must have more than %f character",
+    "other": "field must have more than %f characters"
+  },
 	"must_be_more_than: %f": "value must be more than %f",
 	"must_be_less_than: %f": "value must be less than %f",
 	"must_be_more_than_or_equal: %f": "value must be more than or equal %f",

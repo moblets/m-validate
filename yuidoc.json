@@ -1,0 +1,11 @@
+{
+    "name": "m-validate",
+    "description": "Moblets' NodeJS simple validation to validate data based on a definition JSon.",
+    "version": "2.2.1",
+    "url": "https://github.com/moblets/m-validate#readme",
+    "logo": "../m-validate-logo-small.png",
+    "options": {
+        "outdir": "docs",
+        "markdown": true
+    }
+}

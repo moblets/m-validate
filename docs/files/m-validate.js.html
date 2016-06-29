@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>m-validate.js - m-validate</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../../m-validate-logo-small.png" title="m-validate"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 2.2.1</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/MValidate.html">MValidate</a></li>
+                            </ul>
+                
+                
+                            <ul id="api-modules" class="apis modules">
+                                <li><a href="../modules/MValidate.html">MValidate</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: m-validate.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+var Localization = require(&#x27;i18n-2&#x27;);
+
+var length = require(&#x27;./validations/length.js&#x27;);
+var required = require(&#x27;./validations/required.js&#x27;);
+var string = require(&#x27;./validations/string.js&#x27;);
+var type = require(&#x27;./validations/type.js&#x27;);
+var value = require(&#x27;./validations/value.js&#x27;);
+
+var validations = {
+  type: type,
+  minLength: length.min,
+  maxLength: length.max,
+  required: required,
+  string: string,
+  lessThan: value.lessThan,
+  lessThanOrEqual: value.lessThanOrEqual,
+  moreThan: value.moreThan,
+  moreThanOrEqual: value.moreThanOrEqual
+};
+
+/**
+ * MValidate uses a Json to validate another Json.
+ *
+ * @class MValidate
+ * @param {object} localesConfig Object with the localization config.
+ * @param  {string} locale        The locale to be used
+ * @constructor
+ * @module MValidate
+ * @example
+ * &#x60;&#x60;&#x60;javascript
+ * var localesConfig = {
+ *   locales: [&#x27;pt-BR&#x27;, &#x27;en-US&#x27;, &#x27;es-ES&#x27;],
+ *   directory: &#x27;./locales&#x27;,
+ *   extension: &#x27;.json&#x27;
+ * };
+ * var validator = new MValidate(localesConfig, &#x27;pt-BR&#x27;);
+ * &#x60;&#x60;&#x60;
+ */
+var MValidate = function(localesConfig, locale) {
+  this.i18n = new Localization(localesConfig);
+  this.i18n.setLocale(locale);
+};
+
+/**
+ * Validate the content fields using the properties Json
+ * @method validate
+ * @param  {object} content    The Json with each field to be validated
+ * @param  {Json} properties The Json with each field definition
+ * @return {object}            An object with each validated field and the
+ * found errors. If no error is found, an empty object is returned
+ * @example
+ **content** example:
+ &#x60;&#x60;&#x60;javascript
+ var content = {
+   password: &quot;1234&quot;,
+   title: &quot;Hi there!&quot;,
+   text: &quot;Hello there&quot;,
+   color: &quot;#FFGG32&quot;,
+   backgroundColor: &quot;&quot;
+ };
+ &#x60;&#x60;&#x60;
+ **properties** example:
+ &#x60;&#x60;&#x60;json
+ &quot;fields&quot;: [
+   {
+     &quot;name&quot;: &quot;password&quot;,
+     &quot;type&quot;: &quot;number&quot;,
+     &quot;min-length&quot;: 6,
+     &quot;max-length&quot;: 30
+   },
+   {
+     &quot;name&quot;: &quot;title&quot;,
+     &quot;type&quot;: &quot;text&quot;,
+     &quot;min-length&quot;: 2,
+     &quot;max-length&quot;: 144,
+     &quot;string&quot;: &quot;alphaSpace&quot;,
+     &quot;required&quot;: true
+   },
+   {
+     &quot;name&quot;: &quot;text&quot;,
+     &quot;type&quot;: &quot;text-area&quot;,
+     &quot;min-length&quot;: 2,
+     &quot;max-length&quot;: 3000,
+     &quot;string&quot;: &quot;alphaSpace&quot;
+   },
+   {
+     &quot;name&quot;: &quot;color&quot;,
+     &quot;type&quot;: &quot;color&quot;
+     &quot;required&quot;: true
+   },
+   {
+     &quot;name&quot;: &quot;backgroundColor&quot;,
+     &quot;type&quot;: &quot;color&quot;
+     &quot;required&quot;: true
+   }
+ ]
+ &#x60;&#x60;&#x60;
+ Using this content with this validator and no translation you should get the
+ following response:
+ &#x60;&#x60;&#x60;javascript
+ {
+  password: {
+    min-length: &#x27;must_be_min: 6&#x27;
+  },
+  title: {
+    string: &#x27;not_an_alpha_space&#x27;
+  },
+  text: {},
+  color: {
+    type: &#x27;not_a_color&#x27;
+  },
+  backgroundColor: {
+    required: &#x27;field_is_required&#x27;
+  }
+ }
+ &#x60;&#x60;&#x60;
+
+ * You can check how to create the translation Json in the [spec/locales](https://github.com/moblets/m-validate/tree/develop/spec/locales) folder.
+
+ * Check all possible validations and usage in the [readme documentation](https://github.com/moblets/m-validate#m-validate).
+ */
+MValidate.prototype.validate = function(content, properties) {
+  var error = false;
+  var response = {};
+    // Iterate the array with the PROPERTIES
+  for (var i = 0; i &lt; properties.length; i++) {
+    var property = properties[i];
+
+      // Iterate the RULES of a PROPERTY
+    for (var rule in property) {
+      if (property.hasOwnProperty(rule)) {
+        var fieldName = property.name;
+
+          // Create the object for the results of a property
+        if (typeof response[fieldName] === &#x27;undefined&#x27;) {
+          response[fieldName] = {};
+        }
+
+          // Convert the rule to camelCase to respect Google Style
+        var ccRule = rule.replace(/-([a-z])/g, function(g) {
+          return g[1].toUpperCase();
+        });
+
+          // Validate all rules existing in the validation functions
+          // Ignore &quot;name&quot; and keys that don&#x27;t have a validation deffined
+        if (
+            rule !== &#x27;name&#x27; &amp;&amp;
+            typeof validations[ccRule] !== &#x27;undefined&#x27;) {
+          var validationResult = validations[ccRule](
+              property[rule],
+              content[fieldName],
+              property.values
+            );
+          if (validationResult !== true) {
+            var splitedResponse = validationResult.split(&#x27;: &#x27;);
+            if (splitedResponse.length &gt; 1) {
+              var res = this.i18n.__n(
+                  splitedResponse[0] + &#x27;: %f&#x27;,
+                  Number(splitedResponse[1])
+                );
+
+              if (!res) {
+                res = this.i18n.__(
+                  splitedResponse[0] + &#x27;: %f&#x27;,
+                  Number(splitedResponse[1])
+                );
+              }
+
+              (response[fieldName])[rule] = res;
+            } else {
+              (response[fieldName])[rule] = this.i18n
+              .__(validationResult);
+            }
+            error = true;
+          }
+        }
+      }
+    }
+  }
+  return {
+    error: error,
+    result: response
+  };
+};
+
+/**
+MValidate module
+@module MValidate
+@class MValidate
+@main MValidate
+**/
+module.exports = MValidate;
+
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

@@ -18,11 +18,107 @@ var validations = {
   moreThanOrEqual: value.moreThanOrEqual
 };
 
+/**
+ * MValidate uses a Json to validate another Json.
+ *
+ * @class MValidate
+ * @param {object} localesConfig Object with the localization config.
+ * @param  {string} locale        The locale to be used
+ * @constructor
+ * @module MValidate
+ * @example
+ * ```javascript
+ * var localesConfig = {
+ *   locales: ['pt-BR', 'en-US', 'es-ES'],
+ *   directory: './locales',
+ *   extension: '.json'
+ * };
+ * var validator = new MValidate(localesConfig, 'pt-BR');
+ * ```
+ */
 var MValidate = function(localesConfig, locale) {
   this.i18n = new Localization(localesConfig);
   this.i18n.setLocale(locale);
 };
 
+/**
+ * Validate the content fields using the properties Json
+ * @method validate
+ * @param  {object} content    The Json with each field to be validated
+ * @param  {Json} properties The Json with each field definition
+ * @return {object}            An object with each validated field and the
+ * found errors. If no error is found, an empty object is returned
+ * @example
+ **content** example:
+ ```javascript
+ var content = {
+   password: "1234",
+   title: "Hi there!",
+   text: "Hello there",
+   color: "#FFGG32",
+   backgroundColor: ""
+ };
+ ```
+ **properties** example:
+ ```json
+ "fields": [
+   {
+     "name": "password",
+     "type": "number",
+     "min-length": 6,
+     "max-length": 30
+   },
+   {
+     "name": "title",
+     "type": "text",
+     "min-length": 2,
+     "max-length": 144,
+     "string": "alphaSpace",
+     "required": true
+   },
+   {
+     "name": "text",
+     "type": "text-area",
+     "min-length": 2,
+     "max-length": 3000,
+     "string": "alphaSpace"
+   },
+   {
+     "name": "color",
+     "type": "color"
+     "required": true
+   },
+   {
+     "name": "backgroundColor",
+     "type": "color"
+     "required": true
+   }
+ ]
+ ```
+ Using this content with this validator and no translation you should get the
+ following response:
+ ```javascript
+ {
+  password: {
+    min-length: 'must_be_min: 6'
+  },
+  title: {
+    string: 'not_an_alpha_space'
+  },
+  text: {},
+  color: {
+    type: 'not_a_color'
+  },
+  backgroundColor: {
+    required: 'field_is_required'
+  }
+ }
+ ```
+
+ * You can check how to create the translation Json in the [spec/locales](https://github.com/moblets/m-validate/tree/develop/spec/locales) folder.
+
+ * Check all possible validations and usage in the [readme documentation](https://github.com/moblets/m-validate#m-validate).
+ */
 MValidate.prototype.validate = function(content, properties) {
   var error = false;
   var response = {};
@@ -87,4 +183,10 @@ MValidate.prototype.validate = function(content, properties) {
   };
 };
 
+/**
+MValidate module
+@module MValidate
+@class MValidate
+@main MValidate
+**/
 module.exports = MValidate;

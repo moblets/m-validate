@@ -28,7 +28,8 @@
     "eslint": "^2.8.0",
     "eslint-config-google": "^0.5.0",
     "eslint-plugin-jsdoc": "^2.3.1",
-    "jsdoc": "^3.4.0"
+    "jsdoc": "^3.4.0",
+    "markdown-it": "^7.0.0"
   },
   "dependencies": {
     "i18n-2": "^0.6.3",
