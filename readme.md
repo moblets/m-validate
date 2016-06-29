@@ -10,6 +10,47 @@
 
 Moblets' NodeJS simple validation to validate data based on a definition JSon.
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Installation](#installation)
+- [Available validations](#available-validations)
+  - [Input type validation](#input-type-validation)
+    - [number](#number)
+    - [select, radio and checkbox](#select-radio-and-checkbox)
+    - [color](#color)
+    - [date](#date)
+    - [time](#time)
+    - [email](#email)
+    - [url](#url)
+    - [tel](#tel)
+  - [Value validation](#value-validation)
+    - [lessThan and moreThan](#lessthan-and-morethan)
+    - [lessThanOrEqual and moreThanOrEqual](#lessthanorequal-and-morethanorequal)
+  - [Length validation](#length-validation)
+    - [minLength and maxLength](#minlength-and-maxlength)
+  - [Required validation](#required-validation)
+    - [required](#required)
+  - [String validations](#string-validations)
+    - [alpha](#alpha)
+    - [alphaSpace](#alphaspace)
+    - [alphaDash](#alphadash)
+    - [alphaSymbol](#alphasymbol)
+    - [alphaNumeric](#alphanumeric)
+    - [alphaNumericSpace](#alphanumericspace)
+    - [alphaNumericDash](#alphanumericdash)
+    - [alphaNumericSymbol](#alphanumericsymbol)
+    - [numeric](#numeric)
+    - [numericFloat](#numericfloat)
+    - [numericDash](#numericdash)
+    - [numericSymbol](#numericsymbol)
+- [Pre requisites](#pre-requisites)
+- [Usage](#usage)
+- [License](#license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Installation
 
 ```
@@ -17,7 +58,7 @@ $ npm install --save m-validate
 ```
 
 ## Available validations
-Validations were created for **input type**, **length**, **required** and **string**.
+Validations were created for **input type**, **length**, **required**, **value** and **string**.
 
 ### Input type validation
 These are all HTML 5 input type validations.
@@ -185,6 +226,9 @@ Definition JSon
 ### Length validation
 These two validations are for generic strings to define it's min and max length.
 
+#### minLength and maxLength
+These validations require the data to be a string that has a minimux or maximum number of characters.
+
 **Usage**
 
 Definition JSon
@@ -201,6 +245,9 @@ Definition JSon
 
 ### Required validation
 This validation checks if the required value is available in the POST JSon.
+
+#### required
+These validations can be used in any kind of field
 
 **Usage**
 
