@@ -66,6 +66,11 @@ module.exports = function(theType, theData, theValues) {
           response = "not_a_tel";
         }
         break;
+      case "single_list":
+        if (!Array.isArray(theData)) {
+          response = "not_an_array";
+        }
+        break;
       default:
         response = true;
         break;
