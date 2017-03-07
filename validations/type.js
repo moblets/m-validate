@@ -22,9 +22,18 @@ module.exports = function(theType, theData, theValues) {
           response = 'not_in_the_radio_list';
         }
         break;
+      case "checkbox-list":
+        if (Array.isArray(theData)) {
+          for (var key in theData) {
+            if (typeof theValues[theData[key]] === 'undefined') {
+              response = 'not_in_the_checkbox_list';
+            }
+          }
+        }
+        break;
       case "checkbox":
-        if (typeof theValues[theData] === 'undefined') {
-          response = 'not_in_the_checkbox_list';
+        if (theData !== false && theData !== true) {
+          response = 'not_a_boolean';
         }
         break;
       case "color":
